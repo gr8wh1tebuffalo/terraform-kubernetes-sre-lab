@@ -86,14 +86,14 @@ kubectl port-forward service/sre-lab-app-service 8080:80 -n sre-lab
 Then open:
 
 http://localhost:8080
-Runbooks
 
-Runbooks are included under the runbooks/ folder:
+## Runbooks
 
-app-verification.md
-image-pull-failure.md
+Operational runbooks are included under the `runbooks/` directory:
 
-These document basic application verification, scaling checks, log review, and an image pull failure troubleshooting scenario.
+- `app-verification.md` - verifies the Deployment, Pods, Service, logs, and browser access.
+- `image-pull-failure.md` - documents an `ImagePullBackOff` troubleshooting scenario and recovery steps.
+- `destroy-and-rebuild.md` - documents how to safely destroy and recreate the lab from Terraform code.
 
 Troubleshooting Scenario Practiced
 
