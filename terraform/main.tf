@@ -1,6 +1,6 @@
 resource "kubernetes_namespace_v1" "sre_lab" {
   metadata {
-    name = "sre-lab"
+    name = var.namespace_name
   }
 }
 resource "kubernetes_config_map_v1" "app_config" {
@@ -10,7 +10,7 @@ resource "kubernetes_config_map_v1" "app_config" {
   }
 
   data = {
-    APP_ENV         = "local-lab"
+    APP_ENV         = var.app_environment
     WELCOME_MESSAGE = "Hello from Alec's Terraform Kubernetes SRE lab"
   }
 }
@@ -31,36 +31,36 @@ resource "kubernetes_secret_v1" "app_secret" {
 resource "kubernetes_deployment_v1" "app" {
   wait_for_rollout = true
   metadata {
-    name      = "sre-lab-app"
+    name      = var.app_name
     namespace = kubernetes_namespace_v1.sre_lab.metadata[0].name
     labels = {
-      app = "sre-lab-app"
+      app = var.app_name
     }
   }
 
   spec {
-    replicas = 2
+    replicas = var.app_replicas
 
     selector {
       match_labels = {
-        app = "sre-lab-app"
+        app = var.app_name
       }
     }
 
     template {
       metadata {
         labels = {
-          app = "sre-lab-app"
+          app = var.app_name
         }
       }
 
       spec {
         container {
-          name  = "sre-lab-app"
-          image = "nginxdemos/hello:latest"
+          name  = var.app_name
+          image = var.app_image
 
           port {
-            container_port = 80
+            container_port = var.app_port
           }
 
           readiness_probe {
@@ -117,7 +117,7 @@ resource "kubernetes_service_v1" "app_service" {
 
   spec {
     selector = {
-      app = "sre-lab-app"
+      app = var.app_name
     }
 
     port {
