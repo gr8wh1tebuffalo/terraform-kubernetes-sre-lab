@@ -87,6 +87,12 @@ Then open:
 
 http://localhost:8080
 
+## Documentation
+
+Additional notes are included under the `docs/` directory:
+
+- `terraform-vs-helm-openshift.md` - explains how this Terraform lab compares to a Helm/Jenkins/OpenShift deployment workflow and how it connects to prior production support experience.
+
 ## Runbooks
 
 Operational runbooks are included under the `runbooks/` directory:
