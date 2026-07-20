@@ -26,8 +26,8 @@ jobs:
         with:
           terraform_version: 1.13.4
 
-      - name: Terraform format checkout
-        run: terraform fmt -checkout
+      - name: Terraform format check
+        run: terraform fmt -check
 
       - name: Terraform init
         run: terraform init -backend=false
